@@ -2,14 +2,14 @@
 require('db.php');
 $id = $_REQUEST["id"];
 $Pname = $_REQUEST["Pname"];
-// $Psort = $_REQUEST["Psort"];
+$Psort = $_REQUEST["Psort"];
 $PmainImage = $_FILES["PmainImage"]["tmp_name"];
 $subgraph1 = $_FILES["subgraph1"]["tmp_name"];
 $subgraph2 = $_FILES["subgraph2"]["tmp_name"];
 $subgraph3 = $_FILES["subgraph3"]["tmp_name"];
 $subgraph4 = $_FILES["subgraph4"]["tmp_name"];
-// $Pprice = $_REQUEST["Pprice"];
-// $Pdiscount = $_REQUEST["Pdiscount"];
+$Pprice = $_REQUEST["Pprice"];
+$Pdiscount = $_REQUEST["Pdiscount"];
 // $PfinalPrice = $_REQUEST["PfinalPrice"];
 // $Pstorage = $_REQUEST["Pstorage"];
 // $Pstatus = $_REQUEST["Pstatus"];
@@ -34,21 +34,20 @@ move_uploaded_file($subgraph4,"image/".$_FILES["subgraph4"]['name']);
 $s4="image/" . $_FILES["subgraph4"]["name"];
 
 echo $id ."<br>";
-echo $Pname ."<br>";
 echo $PI ."<br>";
+echo $Psort ."<br>";
 echo $s1 ."<br>";
 echo $s2 ."<br>";
 echo $s3 ."<br>";
 echo $s4 ."<br>";
 
-$sql = "UPDATE product SET Pname=?,pimage=?,pimage_1=?,pimage_2=?,pimage_3=?,pimage_4=?  WHERE pid=?";
 
-// $sql = "UPDATE product SET Pname=?,pimage=?  WHERE pid=?";
+$sql = "UPDATE product SET Pname=?,pimage=?,species_id=?,pimage_1=?,pimage_2=?,pimage_3=?,pimage_4=?,price=?,P_discount=?  WHERE pid=?";
 
 $stmt = $mysqli->prepare($sql);
 
 // UPDATE product SET Pname=?, pimage=? WHERE pid=?，有三個變數，bind_param 函數中的參數排列順序 分別是 Pname、pimage 和 pid。
-$stmt->bind_param('sssssss', $Pname, $PI,$s1,$s2,$s3,$s4, $id);
+$stmt->bind_param('ssssssssss', $Pname,$species_id, $PI,$s1,$s2,$s3,$s4,$Pprice,$P_discount, $id); //,
 
 // $stmt ->bind_param('ssssssssssssssss',$id,$Pname,$Psort,$PmI,$subgraph1,$s2,$s3,$s4,$Pprice,$Pdiscount,$PfinalPrice,$Pstorage,$Pstatus,$Pintroduction,$Pstandard,$editor);
 

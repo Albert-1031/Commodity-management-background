@@ -16,13 +16,14 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
 $pname = $row["pname"];
-
-$pimage = $row["pimage"];
+$pname = $row["pname"];
+$species_id = $row["species_id"];
 $pimage_1 = $row["pimage_1"];
 $pimage_2 = $row["pimage_2"];
 $pimage_3 = $row["pimage_3"];
 $pimage_4 = $row["pimage_4"];
-
+$Pprice = $row["price"];
+$Pdiscount = $row["P_discount"];
 echo  $pimage_1;
 // $mime_type = (new finfo(FILEINFO_MIME_TYPE))->buffer($img);
 // $data_base64=base64_encode($img);
@@ -67,13 +68,18 @@ echo  $pimage_1;
                 <br>
                 <input type="text" name="Pname" id="Pname" value="<?=$row["pname"];?>">
                 <br>
-                <!--<label for="Psort">商品分類</label>
-                 <select name="Psort" id="Psort" class="form-select" aria-label="Default select example">
+                <label for="Psort">商品分類</label>
+                 <!-- <select name="Psort" id="Psort" class="form-select" aria-label="Default select example">
                     <option selected>選擇分類</option>
                     <option value="1">手環</option>
                     <option value="2">耳環</option>
                     <option value="3">吊飾</option>
                 </select> -->
+                <select name="Psort" id="Psort" class="form-select" aria-label="Default select example">
+                    <option value="1" <?php if ($species_id == "1") echo "selected"; ?>>手環</option>
+                    <option value="2" <?php if ($species_id == "2") echo "selected"; ?>>耳環</option>
+                    <option value="3" <?php if ($species_id == "3") echo "selected"; ?>>吊飾</option>
+                </select>
 
                  <p>商品主圖上傳</p>
                 <label for="picture_icon">選擇圖片：</label>
@@ -109,28 +115,37 @@ echo  $pimage_1;
                     </div>
                 </div>
 
-                <!--<label for="Pprice">商品定價</label>
+                <label for="Pprice">商品定價</label>
                 <br>
-                <input type="text" name="Pprice" id="Pprice"> 元
+                <input type="text" name="Pprice" id="Pprice" value="<?=$row["price"];?>"> 元
                 <br>
-                <label for="Pdiscount">選擇優惠活動</label>
+                <!-- <label for="Pdiscount">選擇優惠活動</label>
                 <select name="Pdiscount" id="Pdiscount" class="form-select" aria-label="Default select example">
                     <option selected>選擇優惠活動</option>
                     <option value="1">無</option>
                     <option value="0.9">10%off</option>
                     <option value="0.8">20%offs</option>
+                </select> -->
+
+
+                <label for="Pdiscount">選擇優惠活動</label>
+                <select name="Pdiscount" id="Pdiscount" class="form-select" aria-label="Default select example">
+                <option value="1" <?php if ($Pdiscount == "1") echo "selected"; ?>>無</option>
+                <option value="0.9" <?php if ($Pdiscount == "0.9") echo "selected"; ?>>10% off</option>
+                <option value="0.8" <?php if ($Pdiscount == "0.8") echo "selected"; ?>>20% off</option>
                 </select>
-                </div>
+
+
                 <br>
-                <label for="PfinalPrice">最終價格</label>
+                <!-- <label for="PfinalPrice">最終價格</label>
                 <br>
                 <input type="text" name="PfinalPrice">元  
                 <br>
                 <label for="Pstorage">庫存數量</label>
                 <br>
                 <input type="text" name="Pstorage">
-                <br>
-                <label >商品上下架狀態</label>
+                <br> -->
+                <!--<label >商品上下架狀態</label>
                 <div>
                     <p><input type="radio" value="1">上架</p>
                     <p><input type="radio" value="0">下架</p>
