@@ -6,25 +6,30 @@ $id = $_GET["id"];
   // 你的數據庫連接檔案
 
 
-$sql = "SELECT * FROM product where pid = 140";
+$sql = "SELECT * FROM product where pid = ?";
 $stmt = $mysqli->prepare($sql);
-// $stmt->bind_param("s",$id);
+$stmt->bind_param("i",$id);
 $stmt->execute();
 
 $result = $stmt->get_result();
 
 $row = $result->fetch_assoc();
 
-$img = $row["pimage"];
+$pname = $row["pname"];
 
-$mime_type = (new finfo(FILEINFO_MIME_TYPE))->buffer($img);
-$data_base64=base64_encode($img);
-$src= "data:{$mime_type};base64,{$data_base64}";
+$pimage = $row["pimage"];
+$pimage_1 = $row["pimage_1"];
+$pimage_2 = $row["pimage_2"];
+$pimage_3 = $row["pimage_3"];
+$pimage_4 = $row["pimage_4"];
+
+echo  $pimage_1;
+// $mime_type = (new finfo(FILEINFO_MIME_TYPE))->buffer($img);
+// $data_base64=base64_encode($img);
+// $src= "data:{$mime_type};base64,{$data_base64}";
 // $result = $mysqli->query($sql);
 
-    // 獲取從 URL 傳遞的 id 參數
 
-//   echo  $row['Pname'];
 
 ?>
     <!DOCTYPE html>
@@ -56,11 +61,9 @@ $src= "data:{$mime_type};base64,{$data_base64}";
             <form action="update_sql.php" method="post"  id="form1" runat="server" enctype="multipart/form-data">
 
             訂單編號 :<input  name="id" id="id" value="<?= $id?>"> 
-
             <br>
             <label for="Pname">商品名稱</label>
-            
-            
+                       
                 <br>
                 <input type="text" name="Pname" id="Pname" value="<?=$row["pname"];?>">
                 <br>
@@ -75,38 +78,38 @@ $src= "data:{$mime_type};base64,{$data_base64}";
                  <p>商品主圖上傳</p>
                 <label for="picture_icon">選擇圖片：</label>
                 <br>
-                <!-- <img src="<?=$src?>" alt="" style="width:200px"> -->
                 <img class="picture_icon PmainImage"  src="<?=$row["pimage"]?>" alt="">
                 <br>
                 <input type="file" name="PmainImage">
+                <!-- <img src="<?=$src?>" alt="" style="width:200px"> -->
 
-                <!-- <p>商品子圖上傳</p> 
+                <p>商品子圖上傳</p> 
                 <div class="col-6">           
                     <div class="row row-cols-2">
-                        <div class="col">
+                    <div class="col">            
                             <label for="subgraph1">選擇圖片1：</label>            
-                            <img class="picture_icon subgraph1" id="subgraph1"  src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <img class="picture_icon subgraph1" id="subgraph1"  src="<<?php echo $row["pimage_1"]; ?>" alt="">
                             <input type="file" name="subgraph1">
                         </div>
                         <div class="col">            
                             <label for="subgraph2">選擇圖片2：</label>            
-                            <img class="picture_icon subgraph2" id="subgraph2"  src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <img class="picture_icon subgraph2" id="subgraph2"  src="<?=$row["pimage_2"]?>" alt="">
                             <input type="file" name="subgraph2">
                         </div>
                         <div class="col">            
                             <label for="subgraph3">選擇圖片3：</label>            
-                            <img class="picture_icon subgraph3" id="subgraph3"  src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <img class="picture_icon subgraph3" id="subgraph3"  src="<?=$row["pimage_3"]?>" alt="">
                             <input type="file" name="subgraph3">
                         </div>
                         <div class="col">            
                             <label for="subgraph4">選擇圖片4：</label>            
-                            <img class="picture_icon subgraph4" id="subgraph4"  src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <img class="picture_icon subgraph4" id="subgraph4"  src="<?=$row["pimage_4"]?>" alt="">
                             <input type="file" name="subgraph4">
                         </div>
                     </div>
                 </div>
 
-                <label for="Pprice">商品定價</label>
+                <!--<label for="Pprice">商品定價</label>
                 <br>
                 <input type="text" name="Pprice" id="Pprice"> 元
                 <br>
