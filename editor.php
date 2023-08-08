@@ -1,4 +1,33 @@
-<!DOCTYPE html>
+<?php
+require('db.php');
+$id = $_GET["id"];
+
+
+  // 你的數據庫連接檔案
+
+
+$sql = "SELECT * FROM product where pid = 140";
+$stmt = $mysqli->prepare($sql);
+// $stmt->bind_param("s",$id);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+$row = $result->fetch_assoc();
+
+$img = $row["pimage"];
+
+$mime_type = (new finfo(FILEINFO_MIME_TYPE))->buffer($img);
+$data_base64=base64_encode($img);
+$src= "data:{$mime_type};base64,{$data_base64}";
+// $result = $mysqli->query($sql);
+
+    // 獲取從 URL 傳遞的 id 參數
+
+//   echo  $row['Pname'];
+
+?>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,29 +51,36 @@
 
 <body>
     <div class="container">
-        <h1>商品管理</h1><h2> 新增</h2>
+        <h1>商品管理</h1><h2> 編輯</h2>
         <div>
-            <form action="insert_sql.php" method="post"  id="form1" runat="server" enctype="multipart/form-data">
+            <form action="update_sql.php" method="post"  id="form1" runat="server" enctype="multipart/form-data">
 
-                <label for="Pname">商品名稱</label>
-                <br>
-                <input type="text" name="Pname" id="Pname"> 
+            訂單編號 :<input  name="id" id="id" value="<?= $id?>"> 
 
+            <br>
+            <label for="Pname">商品名稱</label>
+            
+            
                 <br>
-                <label for="Psort">商品分類</label>
-                <select name="Psort" id="Psort" class="form-select" aria-label="Default select example">
+                <input type="text" name="Pname" id="Pname" value="<?=$row["pname"];?>">
+                <br>
+                <!--<label for="Psort">商品分類</label>
+                 <select name="Psort" id="Psort" class="form-select" aria-label="Default select example">
                     <option selected>選擇分類</option>
                     <option value="1">手環</option>
                     <option value="2">耳環</option>
                     <option value="3">吊飾</option>
-                </select>
+                </select> -->
+
                  <p>商品主圖上傳</p>
                 <label for="picture_icon">選擇圖片：</label>
                 <br>
-                <img class="picture_icon PmainImage"  src="https://i.imgur.com/UIMdoua.png" alt="">
+                <!-- <img src="<?=$src?>" alt="" style="width:200px"> -->
+                <img class="picture_icon PmainImage"  src="<?=$row["pimage"]?>" alt="">
                 <br>
                 <input type="file" name="PmainImage">
-                <p>商品子圖上傳</p> 
+
+                <!-- <p>商品子圖上傳</p> 
                 <div class="col-6">           
                     <div class="row row-cols-2">
                         <div class="col">
@@ -81,49 +117,43 @@
                     <option value="0.9">10%off</option>
                     <option value="0.8">20%offs</option>
                 </select>
-            </div>
-            <br>
-            <label for="PfinalPrice">最終價格</label>
-            <br>
-            <input type="text" name="PfinalPrice">元  
-            <br>
-            <label for="Pstorage">庫存數量</label>
-            <br>
-            <input type="text" name="Pstorage">
-            <br>
-            <label >商品上下架狀態</label>
-            <div>
-                <p><input type="radio" name="Pstatus" value="1">上架</p>
-                <p><input type="radio" name="Pstatus" value="0">下架</p>
-            </div>
+                </div>
+                <br>
+                <label for="PfinalPrice">最終價格</label>
+                <br>
+                <input type="text" name="PfinalPrice">元  
+                <br>
+                <label for="Pstorage">庫存數量</label>
+                <br>
+                <input type="text" name="Pstorage">
+                <br>
+                <label >商品上下架狀態</label>
+                <div>
+                    <p><input type="radio" value="1">上架</p>
+                    <p><input type="radio" value="0">下架</p>
+                </div>
 
 
-            <label for="Pintroduction">商品簡介</label>
-            <br>
-            <textarea name="Pintroduction" id="Pintroduction" cols="50" rows="10"></textarea>
+                <label for="Pintroduction">商品簡介</label>
+                <br>
+                <textarea name="Pintroduction" id="Pintroduction" cols="50" rows="10"></textarea>
 
-            <label for="Pstandard">商品規格介紹</label>
-            <br>
-            <textarea name="Pstandard" id="Pstandard" cols="50" rows="10"></textarea>
+                <label for="Pstandard">商品規格介紹</label>
+                <br>
+                <textarea name="Pstandard" id="Pstandard" cols="50" rows="10"></textarea> -->
 
-            <br>
-            <input type="submit" value="提交">
-            <hr>
+                <br>
+                <input type="submit" value="提交">
+                <hr>
 
-            <!-- 編輯 -->
+                <!-- 編輯 -->
+<!-- 
+                <div style="margin: 0 auto; width: 700px;height: 300px;">
+                    <label for="editor"></label>
+                    <textarea name="editor" id="editor"></textarea>
+                </div> -->
+        </from>
 
-            <div style="margin: 0 auto; width: 700px;height: 300px;">
-                <label for="editor"></label>
-                <textarea name="editor" id="editor"></textarea>
-            </div>
-        </form>
-        <script>
-            ClassicEditor
-                .create(document.querySelector('#editor'))
-                .then(editor => {
-                    console.log(editor);
-                })
-        </script>
       </div>
 </body>
 </html>
