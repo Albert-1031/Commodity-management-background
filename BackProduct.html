@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+<!-- ckeditor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+<script src="ckeditor.js"></script>
+
+<title>Document</title>
+</head>
+<style>
+    .picture_icon{
+        width: 200px;
+        padding: 30px;
+    }
+
+</style>
+
+<body>
+    <div class="container">
+        <h1>商品管理</h1><h2> 新增</h2>
+        <div>
+            <form action="PostProductForm.php" method="post">
+                <h4>商品名稱</h4>
+                <input type="text" name="Pname">  
+                <h4>商品分類</h4>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>選擇分類</option>
+                    <option value="1">手環</option>
+                    <option value="2">耳環</option>
+                    <option value="3">吊飾</option>
+                </select>
+                <h4>商品主圖上傳</h4>
+                <br>
+                <img class="picture_icon" src="https://i.imgur.com/UIMdoua.png" alt="">
+                <br>
+                <input type="file">
+                <h4>商品子圖上傳</h4> 
+                <div class="col-6">           
+                    <div class="row row-cols-2">
+                        <div class="col">            
+                            <img class="picture_icon" src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <input type="file">
+                        </div>
+                        <div class="col">            
+                            <img class="picture_icon" src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <input type="file">  
+                        </div>
+                        <div class="col">            
+                            <img class="picture_icon" src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <input type="file">  
+                        </div>
+                        <div class="col">            
+                            <img class="picture_icon" src="https://i.imgur.com/UIMdoua.png" alt="">
+                            <input type="file">
+                        </div>
+                    </div>
+                </div>
+
+                <h4>商品定價</h4>
+                <input type="text"> 元
+                <h4>選擇優惠活動</h4>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>選擇優惠活動</option>
+                    <option value="1">無</option>
+                    <option value="2">10%off</option>
+                    <option value="3">20%offs</option>
+                </select>
+            </div>
+
+            <h4>最終價格</h4>
+            <input type="text">元  
+
+            <h4>庫存數量</h4>
+            <input type="text">
+
+            <h4>商品上下架狀態</h4>
+            <div>
+                <p><input type="radio">上架</p>
+                <p><input type="radio">下架</p>
+            </div>
+
+            <h4>商品簡介</h4>
+            <textarea name="" id="" cols="50" rows="10"></textarea>
+
+            <h4>商品規格介紹</h4>
+            <textarea name="" id="" cols="50" rows="10"></textarea>
+
+
+            <hr>
+        </form>
+        <form id="form1" runat="server">
+            <div style="margin: 0 auto; width: 700px;height: 300px;">
+                <textarea id="editor"></textarea>
+            </div>
+        </form>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor'))
+                .then(editor => {
+                    console.log(editor);
+                })
+        </script>
+      </div>
+</body>
+</html>
