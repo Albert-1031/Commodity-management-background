@@ -16,15 +16,30 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
 $pname = $row["pname"];
-$pname = $row["pname"];
-$species_id = $row["species_id"];
-$pimage_1 = $row["pimage_1"];
-$pimage_2 = $row["pimage_2"];
-$pimage_3 = $row["pimage_3"];
-$pimage_4 = $row["pimage_4"];
+$Psort = $row["species_id"];
+$PmainImage = $row["pimage"];
+$subgraph1 = $row["pimage_1"];
+$subgraph1 = $row["pimage_2"];
+$subgraph1 = $row["pimage_3"];
+$subgraph1 = $row["pimage_4"];
 $Pprice = $row["price"];
 $Pdiscount = $row["P_discount"];
-echo  $pimage_1;
+$PfinalPrice = $row["price_final"];
+$Pstorage = $row["stock"];
+$Pstatus = $row["p_status"];
+
+$Pintroduction = $row["pcontent"];
+$Pstandard = $row["pcontent_spec"];
+$editor = $row["pcontent_main"];
+
+
+echo  $Psort."<br>";
+echo  $Pdiscount."<br>";
+
+
+
+
+
 // $mime_type = (new finfo(FILEINFO_MIME_TYPE))->buffer($img);
 // $data_base64=base64_encode($img);
 // $src= "data:{$mime_type};base64,{$data_base64}";
@@ -69,16 +84,11 @@ echo  $pimage_1;
                 <input type="text" name="Pname" id="Pname" value="<?=$row["pname"];?>">
                 <br>
                 <label for="Psort">商品分類</label>
-                 <!-- <select name="Psort" id="Psort" class="form-select" aria-label="Default select example">
-                    <option selected>選擇分類</option>
-                    <option value="1">手環</option>
-                    <option value="2">耳環</option>
-                    <option value="3">吊飾</option>
-                </select> -->
+
                 <select name="Psort" id="Psort" class="form-select" aria-label="Default select example">
-                    <option value="1" <?php if ($species_id == "1") echo "selected"; ?>>手環</option>
-                    <option value="2" <?php if ($species_id == "2") echo "selected"; ?>>耳環</option>
-                    <option value="3" <?php if ($species_id == "3") echo "selected"; ?>>吊飾</option>
+                    <option value="1" <?php if ($Psort == "1") echo "selected"; ?>>手環</option>
+                    <option value="2" <?php if ($Psort == "2") echo "selected"; ?>>耳環</option>
+                    <option value="3" <?php if ($Psort == "3") echo "selected"; ?>>吊飾</option>
                 </select>
 
                  <p>商品主圖上傳</p>
@@ -92,9 +102,9 @@ echo  $pimage_1;
                 <p>商品子圖上傳</p> 
                 <div class="col-6">           
                     <div class="row row-cols-2">
-                    <div class="col">            
+                        <div class="col">            
                             <label for="subgraph1">選擇圖片1：</label>            
-                            <img class="picture_icon subgraph1" id="subgraph1"  src="<<?php echo $row["pimage_1"]; ?>" alt="">
+                            <img class="picture_icon subgraph1" id="subgraph1"  src="<?=$row["pimage_1"]?>" alt="">
                             <input type="file" name="subgraph1">
                         </div>
                         <div class="col">            
@@ -137,41 +147,50 @@ echo  $pimage_1;
 
 
                 <br>
-                <!-- <label for="PfinalPrice">最終價格</label>
+                 <label for="PfinalPrice">最終價格</label>
                 <br>
-                <input type="text" name="PfinalPrice">元  
+                <input type="text" name="PfinalPrice" value="<?=$row["price_final"];?>">元  
                 <br>
                 <label for="Pstorage">庫存數量</label>
                 <br>
-                <input type="text" name="Pstorage">
-                <br> -->
-                <!--<label >商品上下架狀態</label>
+                <input type="text" name="Pstorage"value="<?=$row["stock"];?>">
+                <br> 
+                <label for="Pstatus">商品上下架狀態</label>
                 <div>
-                    <p><input type="radio" value="1">上架</p>
-                    <p><input type="radio" value="0">下架</p>
+                <fieldset>
+                    <p><input type="radio" name="Pstatus" value="1" <?php if ($Pstatus == 1) echo "checked"; ?>>上架</p>
+                    <p><input type="radio" name="Pstatus" value="0" <?php if ($Pstatus == 0) echo "checked"; ?>>下架</p>
+                </fieldset>
                 </div>
 
 
                 <label for="Pintroduction">商品簡介</label>
                 <br>
-                <textarea name="Pintroduction" id="Pintroduction" cols="50" rows="10"></textarea>
+                <textarea name="Pintroduction" id="Pintroduction" cols="50" rows="10"><?php echo $Pintroduction; ?></textarea>
 
                 <label for="Pstandard">商品規格介紹</label>
                 <br>
-                <textarea name="Pstandard" id="Pstandard" cols="50" rows="10"></textarea> -->
+                <textarea name="Pstandard" id="Pstandard" cols="50" rows="10"><?php echo $Pstandard; ?></textarea>
 
                 <br>
                 <input type="submit" value="提交">
                 <hr>
 
                 <!-- 編輯 -->
-<!-- 
+
                 <div style="margin: 0 auto; width: 700px;height: 300px;">
                     <label for="editor"></label>
-                    <textarea name="editor" id="editor"></textarea>
-                </div> -->
+                    <textarea name="editor" id="editor"><?php echo $editor; ?></textarea>
+                </div>
         </from>
 
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor'))
+                .then(editor => {
+                    console.log(editor);
+                })
+        </script>
       </div>
 </body>
 </html>

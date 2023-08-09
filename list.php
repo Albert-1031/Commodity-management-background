@@ -15,8 +15,7 @@ $result = $mysqli->query($sql);
 <body>
     <h2>商品管理列表</h2>
     <a href="./GetBackProduct.html">新增</a>
-    <br><br>
-    <p>編輯的轉址要?=uid</p>
+    <br>
     <br><br>
 <table border="1">
     <thead>
