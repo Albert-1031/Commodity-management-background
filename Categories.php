@@ -40,7 +40,7 @@ $row = $result->fetch_assoc();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>商品分類管理</title>
+    <title></title>
 </head>
 <body>
     <h2>商品分類管理</h2>
