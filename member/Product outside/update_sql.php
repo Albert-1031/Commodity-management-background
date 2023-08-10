@@ -98,5 +98,5 @@ $stmt->execute(); //代表結束
 
 // 要記得解開註解
 // 重定向到 list.php
-// header('location:list.php'); //不會轉到這頁面，而是list.php頁面
+header('location:list.php'); //不會轉到這頁面，而是list.php頁面
 

@@ -45,6 +45,7 @@ $stmt ->bind_param('sssssssssssssss',$Pname,$Psort,$PmI,$s1,$s2,$s3,$s4,$Pprice,
 $stmt->execute(); //代表結束
 
 // 記得轉址
+header('location:PostBackProduct.html');
 
 if ($stmt) {
     echo $PmI . "<br>";

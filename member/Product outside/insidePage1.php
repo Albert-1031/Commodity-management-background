@@ -1,11 +1,11 @@
 <?php
 session_start();
-require 'DB.php';
+require 'db.php';
 
 if (isset($_GET['pid'])) {
     $pid = $_GET['pid'];
-    $sql = "SELECT pname, price, picnumber FROM product WHERE pid = $pid";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM product WHERE pid = $pid";
+    $result = $mysqli->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -14,9 +14,14 @@ if (isset($_GET['pid'])) {
         // $picnumber = $row["picnumber"];
         $PmainImage = $row["pimage"];
         $subgraph1 = $row["pimage_1"];
-        $subgraph1 = $row["pimage_2"];
-        $subgraph1 = $row["pimage_3"];
-        $subgraph1 = $row["pimage_4"];
+        $subgraph2 = $row["pimage_2"];
+        $subgraph3 = $row["pimage_3"];
+        $subgraph4 = $row["pimage_4"];
+        $PfinalPrice = $row["price_final"];
+        $Pintroduction = $row["pcontent"];
+        $Pstandard = $row["pcontent_spec"];
+        $editor = $row["pcontent_main"];
+        $PfinalPrice=$row['price']* ( 1 - $row['P_discount'] );
     } else {
         echo "Product not found.";
     }
@@ -24,7 +29,7 @@ if (isset($_GET['pid'])) {
     echo "Invalid product ID.";
 }
 
-$conn->close();
+// $conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -143,27 +148,27 @@ $conn->close();
         <div class="info">
             <div class="pic">
                 <div class="big">
-                    <img src="<?php echo $picnumber; ?>" alt="">
+                    <img src="<?= $PmainImage; ?>" alt="">
                     </div>
                 <div class="small">
-                <img src="<?php echo $picnumber; ?>" alt="">
-                <img src="<?php echo $picnumber; ?>" alt="">
-                <img src="<?php echo $picnumber; ?>" alt="">
-                <img src="<?php echo $picnumber; ?>" alt="">
+                <img src="<?= $subgraph1; ?>" alt="">
+                <img src="<?= $subgraph2; ?>" alt="">
+                <img src="<?= $subgraph3; ?>" alt="">
+                <img src="<?= $subgraph4; ?>" alt="">
                 </div>
             </div>
 
             <div class="text">
                 <h1 id="pi_name"><?php echo $pname; ?></h1>
                 <div class="caption">
-                    <p> 完美的細節，為你增添風采！讓我們的飾品成為你造型的亮點。無論是宴會、婚禮或日常穿搭，這款飾品將為你的風格注入奢華和閃耀。與我們的飾品一同追逐時尚，綻放你獨特的魅力！</p>
-                    <p>玫瑰石英：玫瑰石英是一種溫和且具有愛的能量的水晶，被認為能夠促進愛情和情感平衡</p>
+                    <p> <?php echo $row["pcontent"]; ?></p>
+                    <p><?= $Pstandard; ?></p>
                 </div>
                 <div class="box">
                     <div class="heart"></div>
                 </div>
                 <div class="price">
-                    $<span id="pi_price" style="font-size:22px;"><?php echo $price; ?></span>
+                    $<span id="pi_price" style="font-size:22px;"><?php echo $PfinalPrice; ?></span>
                     <p style="color: red;">是否活動折扣</p>
                 </div>
                 <div class="btn">
@@ -203,8 +208,8 @@ $conn->close();
     </div>
     <div class="picinfo">
         <div class="photo">
-            <img src="./img/<?php echo $picnumber; ?>.jpg" alt="">
-            <img src="./img/<?php echo $picnumber; ?>.jpg" alt="">
+            <?= $editor; ?>
+
         </div>
     </div>
 

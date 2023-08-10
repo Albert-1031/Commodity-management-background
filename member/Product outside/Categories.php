@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["newSpecies"])) {
     $stmt->bind_param("s", $newSpecies);
     $stmt->execute();
     $stmt->close();
+    echo "<script>alert('新增成功');</script>";
 }
 
 // 處理更新操作
@@ -24,6 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateSpecies"])) {
     $stmt->bind_param("si", $updatedSpecies, $speciesId);
     $stmt->execute();
     $stmt->close();
+
+    echo "<script>alert('更新成功');</script>";
+
 }
 
 $sql = "SELECT * FROM species";
@@ -48,7 +52,7 @@ $row = $result->fetch_assoc();
     <form action="" method="POST">
         <h4>新增商品分類</h4>
         <input type="text" name="newSpecies" >
-        <input type='radio' name='drone' value='1'>顯示
+        <!-- <input type='radio' name='drone' value='1'>顯示 -->
         <br>
         <input type="submit" value="新增">
     </form>

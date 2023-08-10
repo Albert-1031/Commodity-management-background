@@ -2,15 +2,16 @@
 session_start();
 
 // 引用 db.php 檔案
-require 'DB.php';
+require('db.php');
+// $id = $_GET["pid"];
 
 // 查詢語句
 $query = "SELECT * FROM product";
-$result = mysqli_query($conn, $query);
+$result = mysqli_query($mysqli, $query);
 
 // 檢查查詢結果
 if (!$result) {
-    die("查詢失敗：" . mysqli_error($conn));
+    die("查詢失敗：" . mysqli_error($mysqli));
 }
 ?>
 
@@ -160,12 +161,12 @@ if (!$result) {
         $pid = $row['pid'];
         $pname = $row['pname'];
         $price = $row['price'];
-        $picnumber = $row['picnumber']; ?>
+        $pimage = $row['pimage']; ?>
         <div class="card">
             <div class="box">
                 <div class="card-img">
                     <a href="insidePage1.php?pid=<?php echo $pid; ?>">
-                        <img src="./img/<?php echo $picnumber; ?>.jpg" class="card-img">
+                        <img src="./<?php echo $pimage; ?>" class="card-img">
                     </a>
                 </div>
                 <div class="heart"></div>
@@ -182,8 +183,7 @@ if (!$result) {
 
     </div>
 <?php
-// 關閉資料庫連線
-$conn->close();
+
 ?>
     </div>
 

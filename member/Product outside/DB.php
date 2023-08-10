@@ -1,13 +1,11 @@
 <?php
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// 連結資料庫跟sql.php
 $host = "localhost";
-// 不建議用root，有資安危險，可以用abuser
 $user = "root";
-// 
 $pwd = "";
-$db = "charites";
+$db = "ecommerce";
 
-$mysqli = new mysqli($host, $user, $pwd, $db);
+$mysqli = new mysqli($host,$user,$pwd,$db)
+
 ?>
