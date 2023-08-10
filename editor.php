@@ -190,7 +190,7 @@ echo  $Pdiscount."<br>";
                 .then(editor => {
                     console.log(editor);
                 })
-        </script>
+        </script>picnumber
       </div>
 </body>
 </html>
